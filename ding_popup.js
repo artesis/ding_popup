@@ -35,7 +35,9 @@ Drupal.ding_popup = {
           'autoOpen': false,
           'modal': true,
           'close': function(event, ui) {
+            if (response['refresh']) {
               window.location.reload(true);
+            }
           }
       });
     }
