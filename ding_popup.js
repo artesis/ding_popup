@@ -41,7 +41,17 @@ Drupal.ding_popup = {
           }
       });
     }
-    this.dialogs[response.name].dialog('option', {'title': response.title});
+    // Add width to dialog. Supports width in percentage.
+    if (typeof(response.width) != 'undefined' && response.width != -1) {
+      var width = response.width;
+      if (width.indexOf('%') != -1) {
+        var percent = parseFloat(width);
+        width = $('body').width() * percent/100;
+      }
+      this.dialogs[response.name].dialog('option', 'width', width);
+    }
+    // Set dialog title.
+    this.dialogs[response.name].dialog('option', 'title', response.title);
     this.dialogs[response.name].html(response.data);
     Drupal.attachBehaviors(this.dialogs[response.name]);
     this.dialogs[response.name].dialog('open');
